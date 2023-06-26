@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SurveyApp.Services\SurveyApp.Services.csproj" />
+    <ProjectReference Include="..\..\Application\SurveyApp.Services\SurveyApp.Services.csproj" />
   </ItemGroup>
 
 </Project>
