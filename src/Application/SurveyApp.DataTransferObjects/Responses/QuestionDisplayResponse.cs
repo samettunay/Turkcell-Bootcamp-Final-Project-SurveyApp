@@ -8,11 +8,9 @@ namespace SurveyApp.DataTransferObjects.Responses
         public int? Order { get; set; }
         [Required]
         public string QuestionText { get; set; }
-        public bool IsMandatory { get; set; }
+        public bool? IsMandatory { get; set; }
 
-        public int QuestionTypeId { get; set; }
         public QuestionTypeDisplayResponse QuestionType { get; set; }
-        public int SurveyId { get; set; }
         public ICollection<SurveyDisplayResponse> Surveys { get; set; }
         public ICollection<QuestionOptionDisplayResponse> QuestionOptions { get; set; }
     }

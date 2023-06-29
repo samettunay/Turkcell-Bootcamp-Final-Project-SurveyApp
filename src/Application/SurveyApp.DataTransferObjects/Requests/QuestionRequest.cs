@@ -13,7 +13,7 @@ namespace SurveyApp.DataTransferObjects.Requests
         public int? Order { get; set; }
         [Required]
         public string QuestionText { get; set; }
-        public bool IsMandatory { get; set; }
+        public bool? IsMandatory { get; set; }
         public int QuestionTypeId { get; set; }
         public int SurveyId { get; set; }
     }

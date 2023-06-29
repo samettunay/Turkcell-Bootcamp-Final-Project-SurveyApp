@@ -11,6 +11,7 @@ namespace SurveyApp.Services.Services
     public interface ISurveyService : IService<SurveyRequest, SurveyDisplayResponse>
     {
         Task<int> CreateAndReturnIdAsync(SurveyRequest request);
+        Task<bool> SurveyIsExists(int surveyId);
     }
 
 }

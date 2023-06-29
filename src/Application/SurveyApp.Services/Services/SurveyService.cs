@@ -15,9 +15,11 @@ namespace SurveyApp.Services.Services
     {
         private readonly ISurveyRepository _repository;
         private readonly IMapper _mapper;
-        public SurveyService(IRepository<Survey> repository, IMapper mapper) : base(repository, mapper)
+
+        public SurveyService(ISurveyRepository repository, IMapper mapper)
+            : base(repository, mapper)
         {
-            _repository = (ISurveyRepository)repository;
+            _repository = repository;
             _mapper = mapper;
         }
 
@@ -26,6 +28,11 @@ namespace SurveyApp.Services.Services
             var survey = _mapper.Map<Survey>(request);
             await _repository.CreateAsync(survey);
             return survey.Id;
+        }
+
+        public async Task<bool> SurveyIsExists(int surveyId)
+        {
+            return await _repository.IsExistsAsync(surveyId);
         }
     }
 }

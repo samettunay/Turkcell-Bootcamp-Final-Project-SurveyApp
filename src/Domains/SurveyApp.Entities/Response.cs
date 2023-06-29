@@ -9,8 +9,8 @@ namespace SurveyApp.Entities
     public class Response : IEntity
     {
         public int Id { get; set; }
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? BeginDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public int RespondentId { get; set; }
         public Respondent Respondent { get; set; }

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SurveyApp.API.Filters;
 using SurveyApp.DataTransferObjects.Requests;
 using SurveyApp.Services.Services;
 
@@ -14,6 +16,13 @@ namespace SurveyApp.API.Controllers
         public SurveysController(ISurveyService surveyService)
         {
             _surveyService = surveyService;
+        }
+
+        [HttpGet]
+        public IActionResult GetSurveys()
+        {
+            var surveys = _surveyService.GetAll();
+            return Ok(surveys);
         }
 
         [HttpGet("{id}")]
@@ -36,6 +45,27 @@ namespace SurveyApp.API.Controllers
                 return CreatedAtAction(nameof(GetSurvey), routeValues: new { id = lastSurveyId }, null);
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpPut("{id}")]
+        [IsExists]
+        public async Task<IActionResult> Update(int id, SurveyRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                request.Id = id;
+                await _surveyService.UpdateAsync(request);
+                return Ok();
+            }
+            return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{id}")]
+        [IsExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _surveyService.DeleteAsync(id);
+            return Ok();
         }
     }
 }

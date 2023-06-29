@@ -10,9 +10,9 @@ namespace SurveyApp.Services.Services
     {
         private readonly IQuestionOptionRepository _repository;
         private readonly IMapper _mapper;
-        public QuestionOptionService(IRepository<QuestionOption> repository, IMapper mapper) : base(repository, mapper)
+        public QuestionOptionService(IQuestionOptionRepository repository, IMapper mapper) : base(repository, mapper)
         {
-            _repository = (IQuestionOptionRepository)repository;
+            _repository = repository;
             _mapper = mapper;
         }
     }

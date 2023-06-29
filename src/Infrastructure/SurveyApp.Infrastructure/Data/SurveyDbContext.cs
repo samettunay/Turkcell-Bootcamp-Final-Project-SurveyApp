@@ -23,7 +23,18 @@ namespace SurveyApp.Infrastructure.Data
 
         public SurveyDbContext(DbContextOptions<SurveyDbContext> options) : base(options)
         {
+            
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AnswerOption>()
+                        .HasOne(ao => ao.QuestionOption)
+                        .WithMany(qo => qo.AnswerOptions)
+                        .HasForeignKey(ao => ao.QuestionOptionId)
+                        .OnDelete(DeleteBehavior.NoAction);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
