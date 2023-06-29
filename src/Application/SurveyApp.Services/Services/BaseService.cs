@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SurveyApp.DataTransferObjects;
+using SurveyApp.DataTransferObjects.Requests;
 using SurveyApp.Entities;
 using SurveyApp.Infrastructure.Repositories;
 using System;

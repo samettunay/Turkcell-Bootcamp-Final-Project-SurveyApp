@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SurveyApp.DataTransferObjects.Responses
 {
-    public class SurveyResponseDisplayResponse : IDto
+    public class SurveyResponseDisplayResponse : IResponseDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
 

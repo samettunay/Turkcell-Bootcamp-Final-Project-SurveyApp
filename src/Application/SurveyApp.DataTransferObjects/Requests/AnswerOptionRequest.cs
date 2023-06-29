@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SurveyApp.DataTransferObjects.Requests
 {
-    public class AnswerOptionRequest : IDto
+    public class AnswerOptionRequest : IRequestDto
     {
         [JsonIgnore]
         public int? Id { get; set; }

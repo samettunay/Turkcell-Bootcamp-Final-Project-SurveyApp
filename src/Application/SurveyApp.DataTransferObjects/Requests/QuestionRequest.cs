@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SurveyApp.DataTransferObjects.Requests
 {
-    public class QuestionRequest : IDto
+    public class QuestionRequest : IRequestDto
     {
         public int? Id { get; set; }
         public int? Order { get; set; }

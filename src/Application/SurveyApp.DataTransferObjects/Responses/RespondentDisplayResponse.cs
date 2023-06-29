@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurveyApp.DataTransferObjects.Responses
 {
-    public class RespondentDisplayResponse : IDto
+    public class RespondentDisplayResponse : IResponseDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -2,7 +2,7 @@
 
 namespace SurveyApp.DataTransferObjects.Responses
 {
-    public class QuestionDisplayResponse : IDto
+    public class QuestionDisplayResponse : IResponseDto
     {
         public int Id { get; set; }
         public int? Order { get; set; }

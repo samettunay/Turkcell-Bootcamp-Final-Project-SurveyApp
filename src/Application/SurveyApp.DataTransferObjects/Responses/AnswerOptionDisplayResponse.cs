@@ -1,6 +1,6 @@
 ﻿namespace SurveyApp.DataTransferObjects.Responses
 {
-    public class AnswerOptionDisplayResponse : IDto
+    public class AnswerOptionDisplayResponse : IResponseDto
     {
         public int Id { get; set; }
         public AnswerDisplayResponse Answer { get; set; }
