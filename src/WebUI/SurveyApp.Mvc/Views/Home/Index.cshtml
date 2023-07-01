@@ -1,8 +1,24 @@
-﻿@{
+﻿@model IEnumerable<SurveyDisplayResponse>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@foreach (var survey in Model)
+{
+    <p><strong>Anket: </strong>@survey.Name</p>
+    <p><strong>Anket Açıklama: </strong>@survey.Description</p>
+
+    foreach (var question in survey.Questions)
+    {
+        <p><strong>Soru Tipi: </strong>@question.QuestionType.Type</p>
+        <p><strong>Soru: </strong></p>@question.QuestionText
+        foreach (var questionOption in question.QuestionOptions)
+        {
+            <br/>
+            <input type="radio" id="question-option" name="@question.Id" value="@questionOption.Value">
+            @questionOption.Value
+        }
+        
+    }
+}

@@ -28,6 +28,12 @@ namespace SurveyApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Answer>()
+                        .HasOne(r=>r.Response)
+                        .WithMany(a=>a.Answers)
+                        .HasForeignKey(r=>r.ResponseId)
+                        .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<AnswerOption>()
                         .HasOne(ao => ao.QuestionOption)
                         .WithMany(qo => qo.AnswerOptions)

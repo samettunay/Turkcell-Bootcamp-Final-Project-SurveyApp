@@ -20,9 +20,9 @@ namespace SurveyApp.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public virtual IActionResult GetAll()
+        public virtual async Task<IActionResult> GetAll()
         {
-            var items = _service.GetAll();
+            var items = await _service.GetAllAsync();
             if (items == null)
             {
                 return NotFound();
@@ -31,9 +31,9 @@ namespace SurveyApp.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public virtual IActionResult GetById(int id)
+        public virtual async Task<IActionResult> GetById(int id)
         {
-            var item = _service.GetById(id);
+            var item = await _service.GetByIdAsync(id);
             if (item == null)
             {
                 return NotFound();

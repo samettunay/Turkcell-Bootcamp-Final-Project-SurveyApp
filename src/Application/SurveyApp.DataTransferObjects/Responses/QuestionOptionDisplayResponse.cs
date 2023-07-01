@@ -8,6 +8,5 @@ namespace SurveyApp.DataTransferObjects.Responses
         public int Order { get; set; }
         [Required]
         public string Value { get; set; }
-        public QuestionDisplayResponse Question { get; set; }
     }
 }

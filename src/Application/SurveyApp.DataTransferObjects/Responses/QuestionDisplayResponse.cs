@@ -11,7 +11,7 @@ namespace SurveyApp.DataTransferObjects.Responses
         public bool? IsMandatory { get; set; }
 
         public QuestionTypeDisplayResponse QuestionType { get; set; }
-        public ICollection<SurveyDisplayResponse> Surveys { get; set; }
-        public ICollection<QuestionOptionDisplayResponse> QuestionOptions { get; set; }
+        public IEnumerable<SurveyDisplayResponse> Surveys { get; set; }
+        public IEnumerable<QuestionOptionDisplayResponse> QuestionOptions { get; set; }
     }
 }

@@ -21,5 +21,27 @@ namespace SurveyApp.Infrastructure.Repositories
         {
             return _context.Surveys.AnyAsync(s => s.Id == id);
         }
+
+        public override IList<Survey> GetAll()
+        {
+            return _context.Surveys.AsNoTracking()
+                                   .Include(s => s.SurveyStatus)
+                                   .Include(s => s.Questions)
+                                   .ThenInclude(q => q.QuestionOptions)
+                                   .Include(s => s.Questions)
+                                   .ThenInclude(q => q.QuestionType)
+                                   .ToList();
+        }
+
+        public async override Task<IList<Survey>> GetAllAsync()
+        {
+            return await _context.Surveys.AsNoTracking()
+                                         .Include(s => s.SurveyStatus)
+                                         .Include(s => s.Questions)
+                                         .ThenInclude(q => q.QuestionOptions)
+                                         .Include(s => s.Questions)
+                                         .ThenInclude(q => q.QuestionType)
+                                         .ToListAsync();
+        }
     }
 }

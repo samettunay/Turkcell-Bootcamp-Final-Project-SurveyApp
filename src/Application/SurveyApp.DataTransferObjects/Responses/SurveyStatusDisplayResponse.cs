@@ -10,6 +10,6 @@ namespace SurveyApp.DataTransferObjects.Responses
     {
         public int Id { get; set; }
         public string Status { get; set; }
-        public ICollection<SurveyDisplayResponse> Surveys { get; set; }
+        public IEnumerable<SurveyDisplayResponse> Surveys { get; set; }
     }
 }
