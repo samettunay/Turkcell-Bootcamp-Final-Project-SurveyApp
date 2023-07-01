@@ -1,0 +1,10 @@
+﻿@model QuestionDisplayResponse
+
+@Model.QuestionText
+
+@foreach (var questionOption in Model.QuestionOptions)
+{
+    <br />
+    <input type="radio" id="question-option" name="@Model.Id" value="@questionOption.Value">
+    @questionOption.Value
+}

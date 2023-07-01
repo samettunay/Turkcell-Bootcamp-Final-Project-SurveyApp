@@ -1,0 +1,11 @@
+﻿@model QuestionDisplayResponse
+
+@Model.QuestionText
+<br />
+
+@foreach (var questionOption in Model.QuestionOptions)
+{
+    <br />
+    <input type="text" id="question-option" name="@Model.Id" placeholder="@questionOption.Value">
+    <br />
+}

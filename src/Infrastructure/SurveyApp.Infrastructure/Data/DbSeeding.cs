@@ -41,7 +41,11 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var questionItems = new List<Question>()
                 {
-                    new(){SurveyId = 1, QuestionText="Geçen yıl maaş artışı aldınız mı?", QuestionTypeId = 1}
+                    new(){SurveyId = 1, QuestionText="Geçen yıl maaş artışı aldınız mı?", QuestionTypeId = 1},
+                    new(){SurveyId = 1, QuestionText="Hangi şehirleri ziyaret ettiniz?", QuestionTypeId = 2},
+                    new(){SurveyId = 1, QuestionText="En sevdiğiniz artist kimdir?", QuestionTypeId = 3},
+                    new(){SurveyId = 1, QuestionText="İletişim bilgileriniz:", QuestionTypeId = 4},
+                    new(){SurveyId = 1, QuestionText="Anket sistemimizi değerlendiriniz", QuestionTypeId = 5},
                 };
                 dbContext.Questions.AddRange(questionItems);
                 dbContext.SaveChanges();
@@ -55,6 +59,10 @@ namespace SurveyApp.Infrastructure.Data
                 var questionItems = new List<QuestionType>()
                 {
                     new(){Type = "Tek seçmeli"},
+                    new(){Type = "Çoktan seçmeli"},
+                    new(){Type = "Tek satırlık düz metin"},
+                    new(){Type = "Çok satırlı düz metin"},
+                    new(){Type = "Değerlendirme"},
 
                 };
                 dbContext.QuestionType.AddRange(questionItems);
@@ -70,6 +78,18 @@ namespace SurveyApp.Infrastructure.Data
                 {
                     new(){Value = "Evet", QuestionId = 1},
                     new(){Value = "Hayır", QuestionId = 1},
+                    new(){Value = "Paris", QuestionId = 2},
+                    new(){Value = "Londra", QuestionId = 2},
+                    new(){Value = "Hong Kong", QuestionId = 2},
+                    new(){Value = "New York", QuestionId = 2},
+                    new(){Value = "", QuestionId = 3},
+                    new(){Value = "Adı soyadı", QuestionId = 4},
+                    new(){Value = "Adres", QuestionId = 4},
+                    new(){Value = "Posta kodu ve şehir", QuestionId = 4},
+                    new(){Value = "Telefon numarası", QuestionId = 4},
+                    new(){Value = "E-posta adresi", QuestionId = 4},
+                    new(){Value = "1", QuestionId = 5},
+                    new(){Value = "10", QuestionId = 5},
                 };
                 dbContext.QuestionOptions.AddRange(questionItems);
                 dbContext.SaveChanges();

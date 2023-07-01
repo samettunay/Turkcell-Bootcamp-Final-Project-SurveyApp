@@ -11,14 +11,29 @@
 
     foreach (var question in survey.Questions)
     {
-        <p><strong>Soru Tipi: </strong>@question.QuestionType.Type</p>
-        <p><strong>Soru: </strong></p>@question.QuestionText
-        foreach (var questionOption in question.QuestionOptions)
+        switch (question.QuestionType.Type)
         {
-            <br/>
-            <input type="radio" id="question-option" name="@question.Id" value="@questionOption.Value">
-            @questionOption.Value
+            case "Tek seçmeli":
+                <partial name="_SingleChoiceQuestionDisplay" model="question" />
+                break;
+            case "Çoktan seçmeli":
+                <partial name="_MultiChoiceQuestionDisplay" model="question" />
+                break;
+            case "Değerlendirme":
+                <partial name="_EvaluationQuestionDisplay" model="question" />
+                break;
+            case "Tek satırlık düz metin":
+                <partial name="_OneLineOfPlainTextQuestionDisplay" model="question" />
+                break;
+            case "Çok satırlı düz metin":
+                <partial name="_MultiLineOfPlainTextQuestionDisplay" model="question" />
+                break;
+            default:
+                break;
         }
-        
+        <br />
+        <br />
     }
+    <br />
+    <button type="button" class="btn-primary align-content-center">Anketi Gönder</button>
 }
