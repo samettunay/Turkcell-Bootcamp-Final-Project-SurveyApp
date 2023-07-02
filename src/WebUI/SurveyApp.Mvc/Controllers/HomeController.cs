@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SurveyApp.DataTransferObjects.Requests;
 using SurveyApp.Mvc.Models;
 using SurveyApp.Services.Services;
 using System.Diagnostics;
@@ -21,6 +22,15 @@ namespace SurveyApp.Mvc.Controllers
             var surveys = await _surveyService.GetAllAsync();
 
             return View(surveys);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(SurveyResponseModel model)
+            //Respondent Name EmailAddress
+        {   //Response RespondentId SurveyId
+            //Answer AnswerText ResponseId QuestionId
+            //AnswerOption AnswerId QuestionOptionId
+            return Json(model);
         }
 
         public IActionResult Privacy()

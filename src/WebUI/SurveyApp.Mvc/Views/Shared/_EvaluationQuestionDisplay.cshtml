@@ -5,5 +5,5 @@
 <br />
 
 @Model.QuestionOptions.FirstOrDefault().Value
-<input type="range" value="5" min="@Model.QuestionOptions.FirstOrDefault().Value" max="@Model.QuestionOptions.LastOrDefault().Value" oninput="this.nextElementSibling.value = this.value">
+<input type="range" name="AnswerTexts" value="5" min="@Model.QuestionOptions.FirstOrDefault().Value" max="@Model.QuestionOptions.LastOrDefault().Value" oninput="this.nextElementSibling.value = this.value">
 @Model.QuestionOptions.LastOrDefault().Value

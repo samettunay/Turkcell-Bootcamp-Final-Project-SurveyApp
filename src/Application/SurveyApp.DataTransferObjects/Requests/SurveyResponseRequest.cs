@@ -12,8 +12,8 @@ namespace SurveyApp.DataTransferObjects.Requests
     {
         [JsonIgnore]
         public int? Id { get; set; }
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? BeginDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int RespondentId { get; set; }
         public int SurveyId { get; set; }
     }

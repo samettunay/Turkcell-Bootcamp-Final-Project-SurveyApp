@@ -4,36 +4,43 @@
     ViewData["Title"] = "Home Page";
 }
 
+@ViewBag.AnswerText
+
 @foreach (var survey in Model)
 {
     <p><strong>Anket: </strong>@survey.Name</p>
     <p><strong>Anket Açıklama: </strong>@survey.Description</p>
+    
+    <form asp-action="Index">
 
-    foreach (var question in survey.Questions)
-    {
-        switch (question.QuestionType.Type)
+        <input type="text" id="question-option" name="AnswerTexts" placeholder="Deneme knks">
+
+        @foreach (var question in survey.Questions)
         {
-            case "Tek seçmeli":
-                <partial name="_SingleChoiceQuestionDisplay" model="question" />
-                break;
-            case "Çoktan seçmeli":
-                <partial name="_MultiChoiceQuestionDisplay" model="question" />
-                break;
-            case "Değerlendirme":
-                <partial name="_EvaluationQuestionDisplay" model="question" />
-                break;
-            case "Tek satırlık düz metin":
-                <partial name="_OneLineOfPlainTextQuestionDisplay" model="question" />
-                break;
-            case "Çok satırlı düz metin":
-                <partial name="_MultiLineOfPlainTextQuestionDisplay" model="question" />
-                break;
-            default:
-                break;
+            switch (question.QuestionType.Type)
+            {
+                case "Tek seçmeli":
+                    <partial name="_SingleChoiceQuestionDisplay" model="question" />
+                    break;
+                case "Çoktan seçmeli":
+                    <partial name="_MultiChoiceQuestionDisplay" model="question" />
+                    break;
+                case "Değerlendirme":
+                    <partial name="_EvaluationQuestionDisplay" model="question" />
+                    break;
+                case "Tek satırlık düz metin":
+                    <partial name="_OneLineOfPlainTextQuestionDisplay" model="question" />
+                    break;
+                case "Çok satırlı düz metin":
+                    <partial name="_MultiLineOfPlainTextQuestionDisplay" model="question" />
+                    break;
+                default:
+                    break;
+            }
+            <br />
+            <br />
         }
-        <br />
-        <br />
-    }
-    <br />
-    <button type="button" class="btn-primary align-content-center">Anketi Gönder</button>
+        <br /> 
+        <button type="submit" class="btn btn-primary align-content-center">Anketi Gönder</button>
+    </form>
 }
