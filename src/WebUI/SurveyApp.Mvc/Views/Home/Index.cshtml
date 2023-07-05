@@ -1,46 +1,68 @@
 ﻿@model IEnumerable<SurveyDisplayResponse>
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-@ViewBag.AnswerText
-
 @foreach (var survey in Model)
 {
-    <p><strong>Anket: </strong>@survey.Name</p>
-    <p><strong>Anket Açıklama: </strong>@survey.Description</p>
-    
-    <form asp-action="Index">
+    @using (Html.BeginForm("SubmitAnswers", "Home", FormMethod.Post))
+    {
+        <h2>Anket</h2>
 
-        <input type="text" id="question-option" name="AnswerTexts" placeholder="Deneme knks">
-
-        @foreach (var question in survey.Questions)
+        @for (int i = 0; i < survey.Questions.ToList().Count; i++)
         {
-            switch (question.QuestionType.Type)
+            var question = survey.Questions.ToList()[i];
+
+            <h4>@question.QuestionText</h4>
+
+            @if (question.QuestionType.Type == "Tek seçmeli")
             {
-                case "Tek seçmeli":
-                    <partial name="_SingleChoiceQuestionDisplay" model="question" />
-                    break;
-                case "Çoktan seçmeli":
-                    <partial name="_MultiChoiceQuestionDisplay" model="question" />
-                    break;
-                case "Değerlendirme":
-                    <partial name="_EvaluationQuestionDisplay" model="question" />
-                    break;
-                case "Tek satırlık düz metin":
-                    <partial name="_OneLineOfPlainTextQuestionDisplay" model="question" />
-                    break;
-                case "Çok satırlı düz metin":
-                    <partial name="_MultiLineOfPlainTextQuestionDisplay" model="question" />
-                    break;
-                default:
-                    break;
+                for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
+                {
+                    var option = question.QuestionOptions.ElementAt(j);
+
+                    <label>
+                        @Html.RadioButton("Response.Answers[" + i + "].AnswerOptionId", option.Id) @option.Value
+                        @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
+                    </label>
+                    <br />
+                }
+            }
+            else if (question.QuestionType.Type == "Çoktan seçmeli")
+            {
+                for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
+                {
+                    var option = question.QuestionOptions.ElementAt(j);
+
+                    <label>
+                        @Html.CheckBox("Response.Answers[" + i + "].AnswerOptionIds", new { value = option.Id }) @option.Value
+                        @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
+                    </label>
+                    <br />
+                }
+            }
+            else if (question.QuestionType.Type == "Tek satırlık düz metin")
+            {
+                <label>
+                    @Html.TextBox("Response.Answers[" + i + "].AnswerText")
+                    @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
+                </label>
+                <br />
+            }
+            else if (question.QuestionType.Type == "Değerlendirme")
+            {
+                <label>
+                    @question.QuestionOptions.FirstOrDefault().Value
+
+                    @Html.TextBox("Response.Answers[" + i + "].AnswerText", "", new { type = "range", value = "5", min = "" +question.QuestionOptions.FirstOrDefault().Value+ "", max = "" +question.QuestionOptions.LastOrDefault().Value+ "" })
+
+                    @question.QuestionOptions.LastOrDefault().Value
+
+                    @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
+                </label>
+                <br />
             }
             <br />
-            <br />
         }
-        <br /> 
-        <button type="submit" class="btn btn-primary align-content-center">Anketi Gönder</button>
-    </form>
+
+        @Html.Hidden("Response.SurveyId", survey.Id)
+        <input type="submit" class="btn btn-primary" value="Anketi Gönder" />
+    }
 }

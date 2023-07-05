@@ -40,6 +40,13 @@ namespace SurveyApp.Services.Services
             await _repository.CreateAsync(mappedRequest);
         }
 
+        public async Task<int> CreateAndReturnIdAsync(TRequest request)
+        {
+            var mappedRequest = _mapper.Map<TEntity>(request);
+            await _repository.CreateAsync(mappedRequest);
+            return mappedRequest.Id;
+        }
+
         public void Delete(int id)
         {
             _repository.Delete(id);

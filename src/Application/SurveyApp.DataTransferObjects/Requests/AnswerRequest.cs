@@ -16,6 +16,5 @@ namespace SurveyApp.DataTransferObjects.Requests
         public string AnswerText { get; set; }
         public int ResponseId { get; set; }
         public int QuestionId { get; set; }
-
     }
 }

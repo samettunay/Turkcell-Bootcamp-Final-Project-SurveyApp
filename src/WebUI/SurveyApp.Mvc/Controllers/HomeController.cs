@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SurveyApp.DataTransferObjects.Requests;
 using SurveyApp.Mvc.Models;
 using SurveyApp.Services.Services;
@@ -10,11 +12,15 @@ namespace SurveyApp.Mvc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISurveyService _surveyService;
-
-        public HomeController(ILogger<HomeController> logger, ISurveyService surveyService)
+        private readonly IResponseService _responseService;
+        private readonly IAnswerService _answerService;
+        private readonly IAnswerOptionService _answerOptionService;
+        public HomeController(ILogger<HomeController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService)
         {
             _logger = logger;
             _surveyService = surveyService;
+            _answerService = answerService;
+            _answerOptionService = answerOptionService;
         }
 
         public async Task<IActionResult> Index()
@@ -25,12 +31,41 @@ namespace SurveyApp.Mvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(SurveyResponseModel model)
-            //Respondent Name EmailAddress
-        {   //Response RespondentId SurveyId
-            //Answer AnswerText ResponseId QuestionId
-            //AnswerOption AnswerId QuestionOptionId
-            return Json(model);
+        public async Task<IActionResult> SubmitAnswers(ResponseViewModel response)
+        {
+            var responseRequest = new SurveyResponseRequest
+            {
+                RespondentId = 1,
+                SurveyId = response.SurveyId,
+            };
+
+            var responseId = await _responseService.CreateAndReturnIdAsync(responseRequest);
+
+            foreach (var answer in response.Answers)
+            {
+                var answerRequest = new AnswerRequest
+                {
+                    AnswerText = answer.AnswerText,
+                    QuestionId = answer.QuestionId,
+                    ResponseId = responseId,
+                };
+
+                var answerId = await _answerService.CreateAndReturnIdAsync(answerRequest);
+
+                foreach (var answerOptionId in answer.AnswerOptionIds)
+                {
+                    var answerOptionRequest = new AnswerOptionRequest
+                    {
+                        AnswerId = answerId,
+                        QuestionOptionId = answerOptionId,
+                    };
+                    await _answerOptionService.CreateAsync(answerOptionRequest);
+                }
+
+            }
+
+
+            return Json(response);
         }
 
         public IActionResult Privacy()

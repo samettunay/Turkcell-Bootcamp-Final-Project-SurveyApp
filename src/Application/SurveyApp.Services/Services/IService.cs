@@ -13,6 +13,7 @@ namespace SurveyApp.Services.Services
                              where TResponse : class, IDto, new()
     {
         Task CreateAsync(TRequest request);
+        Task<int> CreateAndReturnIdAsync(TRequest request);
         Task UpdateAsync(TRequest request);
         Task DeleteAsync(int id);
 
