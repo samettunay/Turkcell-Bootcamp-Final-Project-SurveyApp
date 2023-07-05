@@ -12,6 +12,8 @@ namespace SurveyApp.API.Extensions
         {
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, EFSurveyRepository>();
+            services.AddScoped<IResponseService, ResponseService>();
+            services.AddScoped<IResponseRepository, EFResponseRepository>();
 
             services.AddDbContext<SurveyDbContext>(opt => opt.UseSqlServer(connectionString));
 

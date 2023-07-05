@@ -11,6 +11,6 @@ namespace SurveyApp.Entities
 
         public int QuestionId { get; set; }
         public Question Question { get; set; }
-        public ICollection<AnswerOption> AnswerOptions { get; set; }
+        public ICollection<AnswerOption>? AnswerOptions { get; set; }
     }
 }

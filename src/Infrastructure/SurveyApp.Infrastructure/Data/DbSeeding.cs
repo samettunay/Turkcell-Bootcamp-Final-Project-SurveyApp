@@ -95,7 +95,7 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var responseItems = new List<Response>()
                 {
-                    new(){RespondentId = 1, SurveyId = 1},
+                    //new(){RespondentId = 1, SurveyId = 1},
                 };
                 dbContext.Responses.AddRange(responseItems);
                 dbContext.SaveChanges();
@@ -108,7 +108,7 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var answerItems = new List<Answer>()
                 {
-                    new(){QuestionId = 1, ResponseId = 1, AnswerText = "Answer Text"},
+                    //new(){QuestionId = 1, ResponseId = 1, AnswerText = "Answer Text"},
                 };
                 dbContext.Answers.AddRange(answerItems);
                 dbContext.SaveChanges();
@@ -121,7 +121,7 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var answerOptionItems = new List<AnswerOption>()
                 {
-                    new(){AnswerId = 1, QuestionOptionId = 1},
+                    //new(){AnswerId = 1, QuestionOptionId = 1},
                 };
                 dbContext.AnswerOptions.AddRange(answerOptionItems);
                 dbContext.SaveChanges();

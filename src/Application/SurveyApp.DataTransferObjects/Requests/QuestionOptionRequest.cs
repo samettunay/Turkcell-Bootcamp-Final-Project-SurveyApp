@@ -12,7 +12,7 @@ namespace SurveyApp.DataTransferObjects.Requests
     {
         [JsonIgnore]
         public int? Id { get; set; }
-        public int Order { get; set; }
+        public int? Order { get; set; }
         [Required]
         public string Value { get; set; }
 

@@ -12,6 +12,6 @@ namespace SurveyApp.DataTransferObjects.Requests
         [JsonIgnore]
         public int? Id { get; set; }
         public int AnswerId { get; set; }
-        public int QuestionOptionId { get; set; }
+        public int? QuestionOptionId { get; set; }
     }
 }

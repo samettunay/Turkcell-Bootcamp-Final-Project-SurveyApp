@@ -1,0 +1,63 @@
+﻿@model SurveyApp.DataTransferObjects.Requests.SurveyRequest
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SurveyRequest</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinResponses" class="control-label"></label>
+                <input asp-for="MinResponses" class="form-control" />
+                <span asp-validation-for="MinResponses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxResponses" class="control-label"></label>
+                <input asp-for="MaxResponses" class="form-control" />
+                <span asp-validation-for="MaxResponses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurveyStatusId" class="control-label"></label>
+                <input asp-for="SurveyStatusId" class="form-control" />
+                <span asp-validation-for="SurveyStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

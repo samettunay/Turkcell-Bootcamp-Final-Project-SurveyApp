@@ -7,7 +7,7 @@
         public int AnswerId { get; set; }
         public Answer Answer { get; set; }
 
-        public int QuestionOptionId { get; set; }
-        public QuestionOption QuestionOption { get; set; }
+        public int? QuestionOptionId { get; set; }
+        public QuestionOption? QuestionOption { get; set; }
     }
 }

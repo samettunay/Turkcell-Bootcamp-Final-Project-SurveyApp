@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SurveyApp.DataTransferObjects.Requests;
+using SurveyApp.Entities;
 using SurveyApp.Mvc.Models;
 using SurveyApp.Services.Services;
 using System.Diagnostics;
@@ -15,12 +16,13 @@ namespace SurveyApp.Mvc.Controllers
         private readonly IResponseService _responseService;
         private readonly IAnswerService _answerService;
         private readonly IAnswerOptionService _answerOptionService;
-        public HomeController(ILogger<HomeController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService)
+        public HomeController(ILogger<HomeController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService)
         {
             _logger = logger;
             _surveyService = surveyService;
             _answerService = answerService;
             _answerOptionService = answerOptionService;
+            _responseService = responseService;
         }
 
         public async Task<IActionResult> Index()
@@ -33,6 +35,7 @@ namespace SurveyApp.Mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitAnswers(ResponseViewModel response)
         {
+
             var responseRequest = new SurveyResponseRequest
             {
                 RespondentId = 1,
@@ -51,19 +54,31 @@ namespace SurveyApp.Mvc.Controllers
                 };
 
                 var answerId = await _answerService.CreateAndReturnIdAsync(answerRequest);
+                
+                if (answer.AnswerOptionIds != null)
+                {
+                    foreach (var answerOptionId in answer.AnswerOptionIds)
+                    {
+                        var answerOptionRequest = new AnswerOptionRequest
+                        {
+                            AnswerId = answerId,
+                            QuestionOptionId = answerOptionId,
+                        };
+                        await _answerOptionService.CreateAsync(answerOptionRequest);
+                    }
+                }
 
-                foreach (var answerOptionId in answer.AnswerOptionIds)
+                if (answer.AnswerOptionId != null)
                 {
                     var answerOptionRequest = new AnswerOptionRequest
                     {
                         AnswerId = answerId,
-                        QuestionOptionId = answerOptionId,
+                        QuestionOptionId = answer.AnswerOptionId,
                     };
                     await _answerOptionService.CreateAsync(answerOptionRequest);
                 }
 
             }
-
 
             return Json(response);
         }

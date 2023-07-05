@@ -12,8 +12,7 @@ namespace SurveyApp.DataTransferObjects.Requests
     {
         [JsonIgnore]
         public int? Id { get; set; }
-        [Required]
-        public string AnswerText { get; set; }
+        public string? AnswerText { get; set; }
         public int ResponseId { get; set; }
         public int QuestionId { get; set; }
     }
