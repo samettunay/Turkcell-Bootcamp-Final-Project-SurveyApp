@@ -13,7 +13,7 @@ namespace SurveyApp.DataTransferObjects.Requests
         [JsonIgnore]
         public int? Id { get; set; }
         public int? Order { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Bu Alanı Boş Bırakmayınız!")]
         public string Value { get; set; }
 
         public int QuestionId { get; set; }

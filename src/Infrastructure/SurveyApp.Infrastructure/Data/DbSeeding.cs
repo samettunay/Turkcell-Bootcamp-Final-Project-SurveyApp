@@ -134,7 +134,10 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var surveyStatusItems = new List<SurveyStatus>()
                 {
-                    new(){Status = "Aktif"},
+                    new(){Status = "Active"},
+                    new(){Status = "Completed"},
+                    new(){Status = "Canceled"},
+                    new(){Status = "Pending"},
                 };
                 dbContext.SurveyStatuses.AddRange(surveyStatusItems);
                 dbContext.SaveChanges();

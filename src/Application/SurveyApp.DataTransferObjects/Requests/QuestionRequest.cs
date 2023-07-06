@@ -11,7 +11,7 @@ namespace SurveyApp.DataTransferObjects.Requests
     {
         public int? Id { get; set; }
         public int? Order { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Bu Alanı Boş Bırakmayınız!")]
         public string QuestionText { get; set; }
         public bool? IsMandatory { get; set; }
         public int QuestionTypeId { get; set; }

@@ -4,7 +4,7 @@
 {
     @using (Html.BeginForm("SubmitAnswers", "Home", FormMethod.Post))
     {
-        <h2>Anket</h2>
+        <h2>@survey.Name</h2>
 
         @for (int i = 0; i < survey.Questions.ToList().Count; i++)
         {

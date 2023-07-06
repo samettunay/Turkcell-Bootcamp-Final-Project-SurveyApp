@@ -12,12 +12,20 @@ namespace SurveyApp.Mvc.Extensions
         {
             services.AddScoped<ISurveyService, SurveyService>();
             services.AddScoped<ISurveyRepository, EFSurveyRepository>();
+            services.AddScoped<ISurveyStatusService, SurveyStatusService>();
+            services.AddScoped<ISurveyStatusRepository, EFSurveyStatusRepository>();
             services.AddScoped<IAnswerService, AnswerService>();
             services.AddScoped<IAnswerRepository, EFAnswerRepository>();
             services.AddScoped<IAnswerOptionService, AnswerOptionService>();
             services.AddScoped<IAnswerOptionRepository, EFAnswerOptionRepository>();
             services.AddScoped<IResponseService, ResponseService>();
             services.AddScoped<IResponseRepository, EFResponseRepository>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IQuestionRepository, EFQuestionRepository>();
+            services.AddScoped<IQuestionTypeService, QuestionTypeService>();
+            services.AddScoped<IQuestionTypeRepository, EFQuestionTypeRepository>();
+            services.AddScoped<IQuestionOptionService, QuestionOptionService>();
+            services.AddScoped<IQuestionOptionRepository, EFQuestionOptionRepository>();
 
             services.AddDbContext<SurveyDbContext>(opt => opt.UseSqlServer(connectionString));
 
