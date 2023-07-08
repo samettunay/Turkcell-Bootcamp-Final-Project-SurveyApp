@@ -150,7 +150,7 @@ namespace SurveyApp.Mvc.Controllers
 
             }
 
-            return Json(response);
+            return Redirect(nameof(Index));
         }
 
         private async Task<IEnumerable<SelectListItem>> getSurveysForSelectListAsync()

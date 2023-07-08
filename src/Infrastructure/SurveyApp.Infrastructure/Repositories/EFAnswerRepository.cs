@@ -1,4 +1,5 @@
-﻿using SurveyApp.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SurveyApp.Entities;
 using SurveyApp.Infrastructure.Data;
 
 namespace SurveyApp.Infrastructure.Repositories
