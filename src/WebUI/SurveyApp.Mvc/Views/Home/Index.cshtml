@@ -1,68 +1,115 @@
-﻿@model IEnumerable<SurveyDisplayResponse>
+﻿<div class="card border-0 home-card">
+    <div class="card-body text-center">
+        <h1 class="card-title m-3">Will my product be a success or a flop?<span class="text-primary">|</span></h1>
+        <p style="font-size: 22px;" class="card-text fw-medium">A global leader in survey software. 1 questions answered daily.</p>
+        <a style="font-size: 20px;" class="btn btn-primary m-3 text-light">Get started</a>
+    </div>
+</div>
 
-@foreach (var survey in Model)
-{
-    @using (Html.BeginForm("SubmitAnswers", "Home", FormMethod.Post))
-    {
-        <h2>@survey.Name</h2>
+<section>
+    <div class="card text-center">
+        <div class="card-body m-3">
+            <h3 class="card-title">Who is your survey audience?</h3>
+            <a href="#" class="btn btn-secondary my-3 mx-3 p-lg-3" style="min-width: 20vh;">Employees</a>
+            <a href="#" class="btn btn-secondary my-3 mx-3 p-lg-3" style="min-width: 20vh;">Customers</a>
+            <a href="#" class="btn btn-secondary my-3 mx-3 p-lg-3" style="min-width: 20vh;">Target Markets</a>
+            <a href="#" class="btn btn-secondary my-3 mx-3 p-lg-3" style="min-width: 20vh;">Other</a>
+        </div>
+    </div>
+</section>
 
-        @for (int i = 0; i < survey.Questions.ToList().Count; i++)
-        {
-            var question = survey.Questions.ToList()[i];
 
-            <h4>@question.QuestionText</h4>
+<section>
+    <div class="card-deck">
+        <div class="card ml-2">
+            <img src="https://prod.smassets.net/assets/website/2.235.0/images/RacialEquity_S.png" class="card-img" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">RACIAL EQUITY</h5>
+                <p class="card-text">Get resources for addressing diversity, equity, and inclusion.</p>
+            </div>
+        </div>
 
-            @if (question.QuestionType.Type == "Tek seçmeli")
-            {
-                for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
-                {
-                    var option = question.QuestionOptions.ElementAt(j);
+        <div class="card ml-2">
+            <img src="https://prod.smassets.net/assets/website/2.235.0/images/HowItWorks_S.png" class="card-img" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">HOW IT WORKS</h5>
+                <p class="card-text">See how easy it is to create, send, and analyze surveys.</p>
+            </div>
+        </div>
 
-                    <label>
-                        @Html.RadioButton("Response.Answers[" + i + "].AnswerOptionId", option.Id) @option.Value
-                        @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
-                    </label>
-                    <br />
-                }
-            }
-            else if (question.QuestionType.Type == "Çoktan seçmeli")
-            {
-                for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
-                {
-                    var option = question.QuestionOptions.ElementAt(j);
+        <div class="card ml-2">
+            <img src="https://prod.smassets.net/assets/website/2.235.0/images/Features_S.png" class="card-img" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">COMPARE FEATURES</h5>
+                <p class="card-text">Get pricing details and our full set of survey features across plans.</p>
+            </div>
+        </div>
 
-                    <label>
-                        @Html.CheckBox("Response.Answers[" + i + "].AnswerOptionIds", new { value = option.Id }) @option.Value
-                        @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
-                    </label>
-                    <br />
-                }
-            }
-            else if (question.QuestionType.Type == "Tek satırlık düz metin")
-            {
-                <label>
-                    @Html.TextBox("Response.Answers[" + i + "].AnswerText")
-                    @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
-                </label>
-                <br />
-            }
-            else if (question.QuestionType.Type == "Değerlendirme")
-            {
-                <label>
-                    @question.QuestionOptions.FirstOrDefault().Value
+        <div class="card ml-2">
+            <img src="https://prod.smassets.net/assets/website/2.235.0/images/FoW.png" class="card-img" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">FUTURE OF WORK</h5>
+                <p class="card-text">Reimagine your business by gathering feedback.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-                    @Html.TextBox("Response.Answers[" + i + "].AnswerText", "", new { type = "range", value = "5", min = "" +question.QuestionOptions.FirstOrDefault().Value+ "", max = "" +question.QuestionOptions.LastOrDefault().Value+ "" })
 
-                    @question.QuestionOptions.LastOrDefault().Value
+<section>
+    <div class="card text-center">
+        <img src="https://prod.smassets.net/assets/content/sm/AudienceBG-NEW.png" class="card-img" alt="...">
+        <div class="card-img-overlay m-3">
+            <h5 class="card-title text-light">Looking for targeted responses to your surveys?</h5>
+            <p class="card-text text-light" style="font-size: 22px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+</section>
 
-                    @Html.Hidden("Response.Answers[" + i + "].QuestionId", question.Id)
-                </label>
-                <br />
-            }
-            <br />
-        }
+<section>
+    <div class="card text-center border-0">
+        <div class="card-body">
+            <h2 class="card-title">Start with an expert-written template</h2>
+            <p class="card-text" style="font-size: 22px;">Our sample survey templates make it easy for you to start collecting feedback in just minutes. Explore hundreds of questions across different survey types, all designed to get you accurate results you can rely on.</p>
+        </div>
+    </div>
 
-        @Html.Hidden("Response.SurveyId", survey.Id)
-        <input type="submit" class="btn btn-primary" value="Anketi Gönder" />
-    }
-}
+    <div class="card text-center border-0">
+        <div class="card-body">
+            <h2 class="card-title">Anket Türleri Gelecek</h2>
+        </div>
+    </div>
+
+</section>
+
+<section>
+    <div class="card-deck">
+        <div class="card" style="width: 18rem;">
+            <img src="https://prod.smassets.net/assets/content/sm/golden-state-warriors.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://prod.smassets.net/assets/content/sm/help-center-tile.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://prod.smassets.net/assets/content/sm/blog-tile-card.png" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
