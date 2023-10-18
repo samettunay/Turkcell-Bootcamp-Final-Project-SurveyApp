@@ -12,6 +12,7 @@ namespace SurveyApp.Infrastructure.Data
     {
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<SurveyStatus> SurveyStatuses { get; set; }
+        public DbSet<SurveyType> SurveyTypes { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionOption> QuestionOptions { get; set; }
         public DbSet<QuestionType> QuestionType { get; set; }

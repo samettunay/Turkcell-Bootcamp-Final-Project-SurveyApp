@@ -15,11 +15,12 @@ namespace SurveyApp.Mvc.Controllers
     {
         private readonly ILogger<SurveysController> _logger;
         private readonly ISurveyService _surveyService;
+        private readonly ISurveyTypeService _surveyTypeService;
         private readonly IResponseService _responseService;
         private readonly IAnswerService _answerService;
         private readonly IAnswerOptionService _answerOptionService;
         private readonly ISurveyStatusService _surveyStatusService;
-        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService)
+        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService, ISurveyTypeService surveyTypeService)
         {
             _logger = logger;
             _surveyService = surveyService;
@@ -27,12 +28,12 @@ namespace SurveyApp.Mvc.Controllers
             _answerOptionService = answerOptionService;
             _responseService = responseService;
             _surveyStatusService = surveyStatusService;
+            _surveyTypeService = surveyTypeService;
         }
 
         public async Task<IActionResult> Index()
         {
             var surveys = await _surveyService.GetAllAsync();
-
             return View(surveys);
         }
 

@@ -12,6 +12,7 @@ namespace SurveyApp.Infrastructure.Data
         public static void SeedDatabase(SurveyDbContext dbContext)
         {
             seedSurveyStatusNotExists(dbContext);
+            seedSurveyTypeIfNotExists(dbContext);
             seedSurveyIfNotExists(dbContext);
             seedRespondentNotExists(dbContext);
             seedResponseIfNotExists(dbContext);
@@ -28,7 +29,7 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var surveyItems = new List<Survey>()
                 {
-                    new(){Name = "Örnek Anketler", Description="Çeşitli soru tipleri için örnekler", SurveyStatusId = 1}
+                    new(){Name = "Örnek Anketler", Description="Çeşitli soru tipleri için örnekler", SurveyStatusId = 1, SurveyTypeId = 4}
                 };
                 dbContext.Surveys.AddRange(surveyItems);
                 dbContext.SaveChanges();
@@ -140,6 +141,22 @@ namespace SurveyApp.Infrastructure.Data
                     new(){Status = "Pending"},
                 };
                 dbContext.SurveyStatuses.AddRange(surveyStatusItems);
+                dbContext.SaveChanges();
+            }
+        }
+
+        private static void seedSurveyTypeIfNotExists(SurveyDbContext dbContext)
+        {
+            if (!dbContext.SurveyTypes.Any())
+            {
+                var surveyTypeItems = new List<SurveyType>()
+                {
+                    new(){Type = "Employees"},
+                    new(){Type = "Customers"},
+                    new(){Type = "Target Markets"},
+                    new(){Type = "Other"},
+                };
+                dbContext.SurveyTypes.AddRange(surveyTypeItems);
                 dbContext.SaveChanges();
             }
         }

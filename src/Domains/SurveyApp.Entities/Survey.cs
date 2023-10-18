@@ -18,7 +18,9 @@ namespace SurveyApp.Entities
         public int? MaxResponses { get; set; }
 
         public int SurveyStatusId { get; set; }
+        public int SurveyTypeId { get; set; }
         public SurveyStatus SurveyStatus { get; set; }
+        public SurveyType SurveyType { get; set; }
         public ICollection<Question> Questions { get; set; }
     }
 }

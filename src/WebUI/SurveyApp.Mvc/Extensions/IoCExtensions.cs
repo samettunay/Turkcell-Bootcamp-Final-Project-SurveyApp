@@ -14,6 +14,8 @@ namespace SurveyApp.Mvc.Extensions
             services.AddScoped<ISurveyRepository, EFSurveyRepository>();
             services.AddScoped<ISurveyStatusService, SurveyStatusService>();
             services.AddScoped<ISurveyStatusRepository, EFSurveyStatusRepository>();
+            services.AddScoped<ISurveyTypeService, SurveyTypeService>();
+            services.AddScoped<ISurveyTypeRepository, EFSurveyTypeRepository>();
             services.AddScoped<IAnswerService, AnswerService>();
             services.AddScoped<IAnswerRepository, EFAnswerRepository>();
             services.AddScoped<IAnswerOptionService, AnswerOptionService>();

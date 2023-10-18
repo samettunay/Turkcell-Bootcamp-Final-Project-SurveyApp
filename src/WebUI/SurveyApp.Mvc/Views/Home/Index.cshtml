@@ -1,10 +1,12 @@
-﻿<div class="card border-0 home-card">
-    <div class="card-body text-center">
-        <h1 class="card-title m-3">Will my product be a success or a flop?<span class="text-primary">|</span></h1>
-        <p style="font-size: 22px;" class="card-text fw-medium">A global leader in survey software. 1 questions answered daily.</p>
-        <a style="font-size: 20px;" class="btn btn-primary m-3 text-light">Get started</a>
+﻿<section>
+    <div class="card border-0 home-card">
+        <div class="card-body text-center">
+            <h1 class="card-title m-3">Will my product be a success or a flop?<span class="text-primary">|</span></h1>
+            <p style="font-size: 22px;" class="card-text fw-medium">A global leader in survey software. 1 questions answered daily.</p>
+            <a style="font-size: 20px;" class="btn btn-primary m-3 text-light">Get started</a>
+        </div>
     </div>
-</div>
+</section>
 
 <section>
     <div class="card text-center">
@@ -74,11 +76,7 @@
         </div>
     </div>
 
-    <div class="card text-center border-0">
-        <div class="card-body">
-            <h2 class="card-title">Anket Türleri Gelecek</h2>
-        </div>
-    </div>
+    @await Component.InvokeAsync("SurveyTypes")
 
 </section>
 

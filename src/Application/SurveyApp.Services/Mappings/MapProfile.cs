@@ -16,6 +16,7 @@ namespace SurveyApp.Services.Mappings
         {
             CreateMap<Survey, SurveyDisplayResponse>();
             CreateMap<SurveyStatus, SurveyStatusDisplayResponse>();
+            CreateMap<SurveyType, SurveyTypeDisplayResponse>();
             CreateMap<Question, QuestionDisplayResponse>();
             CreateMap<QuestionOption, QuestionOptionDisplayResponse>();
             CreateMap<QuestionType, QuestionTypeDisplayResponse>();
@@ -26,6 +27,7 @@ namespace SurveyApp.Services.Mappings
 
             CreateMap<SurveyRequest, Survey>();
             CreateMap<SurveyStatusRequest, SurveyStatus>();
+            CreateMap<SurveyTypeRequest, SurveyType>();
             CreateMap<SurveyResponseRequest, Response>();
             CreateMap<RespondentRequest, Respondent>();
             CreateMap<QuestionTypeRequest, QuestionType>();
