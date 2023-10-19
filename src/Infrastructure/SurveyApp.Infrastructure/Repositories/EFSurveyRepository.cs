@@ -22,6 +22,12 @@ namespace SurveyApp.Infrastructure.Repositories
             return _context.Surveys.AnyAsync(s => s.Id == id);
         }
 
+        public async Task<IList<Survey>> GetSurveysByTypeIdAsync(int surveyTypeId)
+        {
+            return await _context.Surveys.Where(s => s.SurveyTypeId == surveyTypeId)
+                                   .ToListAsync();
+        }
+
         public override IList<Survey> GetAll()
         {
             return _context.Surveys.AsNoTracking()

@@ -30,6 +30,13 @@ namespace SurveyApp.Services.Services
             return survey.Id;
         }
 
+        public async Task<IList<SurveyDisplayResponse>> GetSurveysByTypeIdAsync(int surveyTypeId)
+        {
+            var surveys = await _repository.GetSurveysByTypeIdAsync(surveyTypeId);
+            var response = _mapper.Map<IList<SurveyDisplayResponse>>(surveys);
+            return response;
+        }
+
         public async Task<bool> SurveyIsExists(int surveyId)
         {
             return await _repository.IsExistsAsync(surveyId);

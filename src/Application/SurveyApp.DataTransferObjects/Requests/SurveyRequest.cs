@@ -20,5 +20,6 @@ namespace SurveyApp.DataTransferObjects.Requests
         public int? MinResponses { get; set; }
         public int? MaxResponses { get; set; }
         public int SurveyStatusId { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

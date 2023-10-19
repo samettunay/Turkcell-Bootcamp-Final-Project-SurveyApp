@@ -16,6 +16,7 @@ namespace SurveyApp.Entities
         public DateTime? EndDate { get; set; }
         public int? MinResponses { get; set; }
         public int? MaxResponses { get; set; }
+        public string? ImageUrl { get; set; }
 
         public int SurveyStatusId { get; set; }
         public int SurveyTypeId { get; set; }

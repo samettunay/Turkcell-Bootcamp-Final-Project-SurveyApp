@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SurveyTypeDisplayResponse>
+
+<ul class="list-group">
+    @foreach (var surveyTypeDisplay in Model)
+    {
+        <li class="list-group-item">
+            <button class="btn border w-100 text-start text-primary fw-bold type" data-id="@surveyTypeDisplay.Id">@surveyTypeDisplay.Type (@surveyTypeDisplay.Surveys.Count())</button>
+        </li>
+    }
+</ul>
+

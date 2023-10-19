@@ -154,6 +154,12 @@ namespace SurveyApp.Mvc.Controllers
             return Redirect(nameof(Index));
         }
 
+        public async Task<IActionResult> GetSurveysByTypeId(int surveyTypeId)
+        {
+            var surveys = await _surveyService.GetSurveysByTypeIdAsync(surveyTypeId);
+            return PartialView("_SurveyPartial", surveys);
+        }
+
         private async Task<IEnumerable<SelectListItem>> getSurveysForSelectListAsync()
         {
             var surveyList = await _surveyService.GetAllAsync();

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<SurveyDisplayResponse>
+
+<div class="card-deck">
+    @{
+        foreach (var survey in Model)
+        {
+            <div class="card">
+                <img src="@survey.ImageUrl" class="img-fluid" />
+                <div class="card-body">
+                    <h4 class="card-title">@survey.Name</h4>
+                    <p class="card-text"> @survey.Description</p>
+                    <p class="card-text"> @survey.EndDate</p>
+                </div>
+            </div>
+        }
+    }
+</div>

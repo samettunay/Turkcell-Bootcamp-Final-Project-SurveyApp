@@ -29,7 +29,10 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var surveyItems = new List<Survey>()
                 {
-                    new(){Name = "Örnek Anketler", Description="Çeşitli soru tipleri için örnekler", SurveyStatusId = 1, SurveyTypeId = 4}
+                    new(){Name = "Customer satisfaction survey", Description="Use this template to learn how to keep your customers happy and turn them into advocates for your business.", SurveyStatusId = 1, SurveyTypeId = 2, ImageUrl = "https://prod.smassets.net/assets/content/sm/survey-template-featured-gray-square.webp"},
+                    new(){Name = "Customer service survey", Description="Use our customer service survey template to get the feedback you need to keep customers happy.", SurveyStatusId = 1, SurveyTypeId = 2, ImageUrl = "https://prod.smassets.net/assets/content/sm/customer-service-survey-template.png"},
+                    new(){Name = "Website feedback survey", Description="Use this survey to assess the effectiveness of your online presence and deliver a better experience.", SurveyStatusId = 1, SurveyTypeId = 2, ImageUrl = "https://prod.smassets.net/assets/content/sm/Website_surveys.png"},
+                    new(){Name = "Net Promoter® Score (NPS) survey", Description="Assess customer satisfaction and your company’s performance over time.", SurveyStatusId = 1, SurveyTypeId = 2, ImageUrl = "https://prod.smassets.net/assets/content/sm/net-promoter-score-survey-template.png"},
                 };
                 dbContext.Surveys.AddRange(surveyItems);
                 dbContext.SaveChanges();

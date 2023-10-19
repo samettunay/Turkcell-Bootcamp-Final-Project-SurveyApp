@@ -15,8 +15,10 @@ namespace SurveyApp.DataTransferObjects.Responses
         public DateTime? EndDate { get; set; }
         public int? MinResponses { get; set; }
         public int? MaxResponses { get; set; }
+        public string? ImageUrl { get; set; }
 
         public SurveyStatusDisplayResponse SurveyStatus { get; set; }
+        public SurveyTypeDisplayResponse SurveyType { get; set; }
         public IEnumerable<QuestionDisplayResponse> Questions { get; set; }
     }
 }

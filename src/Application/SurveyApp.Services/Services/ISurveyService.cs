@@ -10,6 +10,7 @@ namespace SurveyApp.Services.Services
 {
     public interface ISurveyService : IService<SurveyRequest, SurveyDisplayResponse>
     {
+        Task<IList<SurveyDisplayResponse>> GetSurveysByTypeIdAsync(int surveyTypeId);
         Task<int> CreateAndReturnIdAsync(SurveyRequest request);
         Task<bool> SurveyIsExists(int surveyId);
     }
