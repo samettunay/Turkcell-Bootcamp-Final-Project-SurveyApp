@@ -1,11 +1,11 @@
 ﻿@model SurveyComponentModel
 
 <div class="row">
-    <div class="col-4">
+    <div class="col-3">
         @await Component.InvokeAsync("FilterMenu", new {model = Model.SurveyTypes})
     </div>
 
-    <div id="surveyList" class="col-8">
+    <div id="surveyList" class="col-9">
         @await Component.InvokeAsync("SurveyList", new {model = Model.Surveys})
     </div>
 </div>

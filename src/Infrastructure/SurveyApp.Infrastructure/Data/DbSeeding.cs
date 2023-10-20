@@ -45,10 +45,12 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var questionItems = new List<Question>()
                 {
-                    new(){SurveyId = 1, QuestionText="Geçen yıl maaş artışı aldınız mı?", QuestionTypeId = 1},
-                    new(){SurveyId = 1, QuestionText="Hangi şehirleri ziyaret ettiniz?", QuestionTypeId = 2},
-                    new(){SurveyId = 1, QuestionText="En sevdiğiniz artist kimdir?", QuestionTypeId = 3},
-                    new(){SurveyId = 1, QuestionText="Anket sistemimizi değerlendiriniz", QuestionTypeId = 4},
+                    new(){SurveyId = 1, QuestionText="How likely is it that you would recommend this company to a friend or colleague?", QuestionTypeId = 4},
+                    new(){SurveyId = 1, QuestionText="Overall, how satisfied or dissatisfied are you with our company?", QuestionTypeId = 1},
+                    new(){SurveyId = 1, QuestionText="Which of the following words would you use to describe our products? Select all that apply.", QuestionTypeId = 2},
+                    new(){SurveyId = 1, QuestionText="How well do our products meet your needs?", QuestionTypeId = 1},
+                    new(){SurveyId = 1, QuestionText="Do you have any other comments, questions, or concerns?", QuestionTypeId = 3},
+
                 };
                 dbContext.Questions.AddRange(questionItems);
                 dbContext.SaveChanges();
@@ -78,15 +80,35 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var questionItems = new List<QuestionOption>()
                 {
-                    new(){Value = "Evet", QuestionId = 1},
-                    new(){Value = "Hayır", QuestionId = 1},
-                    new(){Value = "Paris", QuestionId = 2},
-                    new(){Value = "Londra", QuestionId = 2},
-                    new(){Value = "Hong Kong", QuestionId = 2},
-                    new(){Value = "New York", QuestionId = 2},
-                    new(){Value = "", QuestionId = 3},
-                    new(){Value = "1", QuestionId = 4},
-                    new(){Value = "10", QuestionId = 4},
+                    new(){Value = "1", QuestionId = 1},
+                    new(){Value = "10", QuestionId = 1},
+
+
+                    new(){Value = "Very satisfied", QuestionId = 2},
+                    new(){Value = "Somewhat dissatisfied", QuestionId = 2},
+                    new(){Value = "Somewhat satisfied", QuestionId = 2},
+                    new(){Value = "Very dissatisfied", QuestionId = 2},
+                    new(){Value = "Neither satisfied nor dissatisfied", QuestionId = 2},
+
+                    new(){Value = "Reliable", QuestionId = 3},
+                    new(){Value = "High quality", QuestionId = 3},
+                    new(){Value = "Useful", QuestionId = 3},
+                    new(){Value = "Unique", QuestionId = 3},
+                    new(){Value = "Good value for money", QuestionId = 3},
+                    new(){Value = "Overpriced", QuestionId = 3},
+                    new(){Value = "Impractical", QuestionId = 3},
+                    new(){Value = "Ineffective", QuestionId = 3},
+                    new(){Value = "Poor quality", QuestionId = 3},
+                    new(){Value = "Unreliable", QuestionId = 3},
+
+                    new(){Value = "Extremely well", QuestionId = 4},
+                    new(){Value = "Very well", QuestionId = 4},
+                    new(){Value = "Somewhat well", QuestionId = 4},
+                    new(){Value = "Not so well", QuestionId = 4},
+                    new(){Value = "Not at all well", QuestionId = 4},
+
+
+                    new(){Value = "", QuestionId = 5},
                 };
                 dbContext.QuestionOptions.AddRange(questionItems);
                 dbContext.SaveChanges();

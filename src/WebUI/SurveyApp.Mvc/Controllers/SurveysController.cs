@@ -33,8 +33,13 @@ namespace SurveyApp.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var surveys = await _surveyService.GetAllAsync();
-            return View(surveys);
+            return View();
+        }
+
+        public async Task<IActionResult> Display(int surveyId)
+        {
+            var survey = await _surveyService.GetByIdAsync(surveyId);
+            return View(survey);
         }
 
         public async Task<IActionResult> Create()

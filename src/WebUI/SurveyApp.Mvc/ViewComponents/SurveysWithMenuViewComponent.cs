@@ -4,12 +4,12 @@ using SurveyApp.Services.Services;
 
 namespace SurveyApp.Mvc.ViewComponents
 {
-    public class SurveysForMenuViewComponent : ViewComponent
+    public class SurveysWithMenuViewComponent : ViewComponent
     {
         private readonly ISurveyService _surveyService;
         private readonly ISurveyTypeService _surveyTypeService;
 
-        public SurveysForMenuViewComponent(ISurveyService surveyService, ISurveyTypeService surveyTypeService)
+        public SurveysWithMenuViewComponent(ISurveyService surveyService, ISurveyTypeService surveyTypeService)
         {
             _surveyService = surveyService;
             _surveyTypeService = surveyTypeService;

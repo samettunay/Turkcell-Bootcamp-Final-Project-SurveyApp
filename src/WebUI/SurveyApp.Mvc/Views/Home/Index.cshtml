@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    @await Component.InvokeAsync("SurveysForMenu")
+    @await Component.InvokeAsync("SurveysWithMenu")
 
 </section>
 
@@ -108,28 +108,6 @@
         </div>
     </div>
 </section>
-
-@section Scripts{
-    <script>
-        $(document).ready(function () {
-            $('.type').on('click', function () {
-                let id = $(this).data('id');
-                $.ajax({
-                    url: '@Url.Action("GetSurveysByTypeId", "Surveys")',
-                    type: 'GET',
-                    data: { surveyTypeId: id },
-                    success: function (partialHtml) {
-                        var surveyListDiv = $('#surveyList');
-                        surveyListDiv.html(partialHtml);
-                    },
-                    error: function (err) {
-                        console.log('hata', error);
-                    }
-                });
-            });
-        });
-    </script>
-}
 
 
 

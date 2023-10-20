@@ -28,6 +28,15 @@ namespace SurveyApp.Infrastructure.Repositories
                                    .ToListAsync();
         }
 
+        public override async Task<Survey> GetByIdAsync(int id)
+        {
+            return await _context.Surveys.Include(s => s.Questions)
+                                         .ThenInclude(q => q.QuestionOptions)
+                                         .Include(s => s.Questions)
+                                         .ThenInclude(q => q.QuestionType)
+                                         .FirstAsync(s => s.Id == id);
+        }
+
         public override IList<Survey> GetAll()
         {
             return _context.Surveys.AsNoTracking()

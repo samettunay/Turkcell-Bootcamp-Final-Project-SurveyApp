@@ -1,17 +1,12 @@
-﻿@model IEnumerable<SurveyDisplayResponse>
+﻿@model SurveyDisplayResponse
 
-<div class="card-deck">
-    @{
-        foreach (var survey in Model)
-        {
-            <div class="card">
-                <img src="@survey.ImageUrl" class="img-fluid" />
-                <div class="card-body">
-                    <h4 class="card-title">@survey.Name</h4>
-                    <p class="card-text"> @survey.Description</p>
-                    <p class="card-text"> @survey.EndDate</p>
-                </div>
-            </div>
-        }
-    }
-</div>
+<a class="zoom-anim text-reset text-decoration-none" asp-route-surveyId="@Model.Id" asp-action="Display" asp-controller="Surveys">
+    <div class="card">
+        <img src="@Model.ImageUrl" class="img-fluid" />
+        <div class="card-body">
+            <h4 class="card-title">@Model.Name</h4>
+            <p class="card-text"> @Model.Description</p>
+            <p class="card-text"> @Model.EndDate</p>
+        </div>
+    </div>
+</a>
