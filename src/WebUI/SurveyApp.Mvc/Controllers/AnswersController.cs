@@ -20,16 +20,9 @@ namespace SurveyApp.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var answerOptions = await _answerOptionService.GetAllAsync();
-            var questions = await _questionService.GetAllAsync();
+            var answers = await _answerService.GetAllAsync();
 
-            var chartModel = new ChartViewModel
-            {
-                AnswerOptions = answerOptions,
-                Questions = questions
-            };
-
-            return View(chartModel);
+            return View(answers);
         }
     }
 }

@@ -81,6 +81,14 @@ namespace SurveyApp.Infrastructure.Data
                 var questionItems = new List<QuestionOption>()
                 {
                     new(){Value = "1", QuestionId = 1},
+                    new(){Value = "2", QuestionId = 1},
+                    new(){Value = "3", QuestionId = 1},
+                    new(){Value = "4", QuestionId = 1},
+                    new(){Value = "5", QuestionId = 1},
+                    new(){Value = "6", QuestionId = 1},
+                    new(){Value = "7", QuestionId = 1},
+                    new(){Value = "8", QuestionId = 1},
+                    new(){Value = "9", QuestionId = 1},
                     new(){Value = "10", QuestionId = 1},
 
 

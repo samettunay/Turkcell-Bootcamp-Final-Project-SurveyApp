@@ -16,6 +16,7 @@ namespace SurveyApp.Infrastructure.Repositories
         {
             return _context.AnswerOptions.AsNoTracking()
                                    .Include(ao => ao.QuestionOption)
+                                   .Include(ao => ao.Answer)
                                    .ToList();
         }
 
@@ -23,6 +24,7 @@ namespace SurveyApp.Infrastructure.Repositories
         {
             return await _context.AnswerOptions.AsNoTracking()
                                          .Include(ao => ao.QuestionOption)
+                                         .Include(ao => ao.Answer)
                                          .ToListAsync();
         }
     }

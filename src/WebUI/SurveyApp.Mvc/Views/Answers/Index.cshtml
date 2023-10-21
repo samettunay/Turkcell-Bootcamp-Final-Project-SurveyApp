@@ -1,55 +1,75 @@
-﻿@model ChartViewModel
+﻿@model IEnumerable<AnswerDisplayResponse>
 
-
-@foreach (var question in Model.Questions)
-{
-    if (question.QuestionType.Type.Contains("seçmeli"))
-    { 
-        var label = question.QuestionText;
-        var labels = new List<string>();
-        var data = new List<int>();
-
-        foreach (var questionOption in question.QuestionOptions)
-        {
-            labels.Add(questionOption.Value);
-            int count = 0;
-
-
-            var answerOptionIds = Model.AnswerOptions?.Where(ao => ao.QuestionOption.Id == questionOption.Id).Select(ao => ao.Id);
-            count += answerOptionIds?.Count() ?? 0;
-
-
-            data.Add(count);
-        }
-        <div>
-            <canvas id="@question.Id"></canvas>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            new Chart(document.getElementById('@question.Id'), {
-                type: 'bar',
-                data: {
-                    labels: @Json.Serialize(labels),
-                    datasets: [{
-                        label: '@Json.Serialize(label)',
-                        data: @Json.Serialize(data),
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        </script>
-        <br />
-        <br />
-        <br />
-    }
+@{
+    var questionIds = Model.Select(a => a.Question.Id).Distinct();
 }
 
+@foreach (var questionId in questionIds)
+{
+    var questionAnswers = Model.Where(a => a.Question.Id == questionId).ToList();
+    var questionText = questionAnswers.First().Question.QuestionText;
 
+    var answerCounts = new Dictionary<string, int>();
 
+    foreach (var answer in questionAnswers)
+    {
+        if (answer.AnswerOptions.Any())
+        {
+            foreach (var answerOption in answer.AnswerOptions)
+            {
+                var optionText = answerOption.QuestionOption.Value;
+                if (answerCounts.ContainsKey(optionText))
+                {
+                    answerCounts[optionText]++;
+                }
+                else
+                {
+                    answerCounts[optionText] = 1;
+                }
+            }
+        }
+        else
+        {
+            var answerText = answer.AnswerText ?? "No Answer";
+            if (answerCounts.ContainsKey(answerText))
+            {
+                answerCounts[answerText]++;
+            }
+            else
+            {
+                answerCounts[answerText] = 1;
+            }
+        }
+    }
+
+    var labels = answerCounts.Keys.ToList();
+    var data = answerCounts.Values.ToList();
+
+    <div>
+        <canvas id="chart-@questionId"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        new Chart(document.getElementById('chart-@questionId'), {
+            type: 'bar',
+            data: {
+                labels: @Json.Serialize(labels),
+                datasets: [{
+                    label: '@Json.Serialize(questionText)',
+                    data: @Json.Serialize(data),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <br />
+    <br />
+    <br />
+}
