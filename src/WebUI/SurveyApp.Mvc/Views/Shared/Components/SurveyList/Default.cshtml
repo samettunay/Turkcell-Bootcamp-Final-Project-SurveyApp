@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<SurveyDisplayResponse>
 @{
     var columnCount = 0;
+    var isSurveysPage = Context.Request.Path.ToString().Contains("Surveys", StringComparison.OrdinalIgnoreCase);
+    var partialName = isSurveysPage ? "_SurveyPartial" : "_ChartDisplay";
 }
 
 <div class="row">
@@ -12,7 +14,7 @@
         }
 
         <div class="col-3">
-            <partial name="_SurveyPartial" model="surveyDisplay" />
+            <partial name="@partialName" model="surveyDisplay" />
         </div>
             
         columnCount++;

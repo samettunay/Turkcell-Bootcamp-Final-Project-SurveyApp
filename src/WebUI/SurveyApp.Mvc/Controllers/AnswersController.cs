@@ -20,9 +20,15 @@ namespace SurveyApp.Mvc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var answers = await _answerService.GetAllAsync();
+            return View();
+        }
 
-            return View(answers);
+        public async Task<IActionResult> Display(int surveyId)
+        {
+            var responses = await _responseService.GetAllAsync();
+            var surveyResponses = responses.Where(r => r.Survey.Id == surveyId);
+            var result = surveyResponses.SelectMany(r => r.Answers).ToList();
+            return View(result);
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model SurveyDisplayResponse
+
+<a class="zoom-anim text-reset text-decoration-none" asp-route-surveyId="@Model.Id" asp-action="Display" asp-controller="Answers">
+    <div class="card">
+        <img src="@Model.ImageUrl" class="img-fluid" />
+        <div class="card-body">
+            <h4 class="card-title">@Model.Name</h4>
+            <p class="card-text"> @Model.Description</p>
+            <p class="card-text"> @Model.EndDate</p>
+        </div>
+    </div>
+</a>
