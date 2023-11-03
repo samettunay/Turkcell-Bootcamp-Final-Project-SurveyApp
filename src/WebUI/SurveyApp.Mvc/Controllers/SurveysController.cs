@@ -1,11 +1,11 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Caching.Memory;
 using SurveyApp.DataTransferObjects.Requests;
-using SurveyApp.Entities;
+using SurveyApp.DataTransferObjects.Responses;
+using SurveyApp.Mvc.CacheTools;
 using SurveyApp.Mvc.Models;
 using SurveyApp.Services.Services;
 using System.Diagnostics;
@@ -21,7 +21,8 @@ namespace SurveyApp.Mvc.Controllers
         private readonly IAnswerService _answerService;
         private readonly IAnswerOptionService _answerOptionService;
         private readonly ISurveyStatusService _surveyStatusService;
-        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService, ISurveyTypeService surveyTypeService)
+        private readonly IMemoryCache _memoryCache;
+        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService, ISurveyTypeService surveyTypeService, IMemoryCache memoryCache)
         {
             _logger = logger;
             _surveyService = surveyService;
@@ -30,6 +31,7 @@ namespace SurveyApp.Mvc.Controllers
             _responseService = responseService;
             _surveyStatusService = surveyStatusService;
             _surveyTypeService = surveyTypeService;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Index()
@@ -39,8 +41,29 @@ namespace SurveyApp.Mvc.Controllers
 
         public async Task<IActionResult> Display(int surveyId)
         {
-            var survey = await _surveyService.GetByIdAsync(surveyId);
+            var survey = await getSurveyMemCacheOrDb(surveyId);
             return View(survey);
+        }
+
+        private async Task<SurveyDisplayResponse> getSurveyMemCacheOrDb(int surveyId)
+        {
+            if (!_memoryCache.TryGetValue("Survey", out CacheDataInfo cacheDataInfo))
+            {
+                var options = new MemoryCacheEntryOptions()
+                                  .SetSlidingExpiration(TimeSpan.FromMinutes(1))
+                                  .SetPriority(CacheItemPriority.Normal);
+
+                cacheDataInfo = new CacheDataInfo
+                {
+                    CacheTime = DateTime.Now,
+                    Survey = await _surveyService.GetByIdAsync(surveyId)
+                };
+
+                _memoryCache.Set("Survey", cacheDataInfo, options);
+            }
+
+
+            return cacheDataInfo.Survey;
         }
 
         [Authorize(Roles = "Admin")]

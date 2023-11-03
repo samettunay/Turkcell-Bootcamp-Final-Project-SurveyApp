@@ -5,11 +5,17 @@ using SurveyApp.Mvc.Extensions;
 using Microsoft.AspNetCore.Identity;
 using SurveyApp.Mvc.Data;
 using SurveyApp.Mvc.Areas.Identity.Data;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(15);
+});
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
@@ -53,28 +59,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
-
-//using (var roleScope = app.Services.CreateScope())
-//{
-//    var roleManager = roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-//    string roleName = "Admin";
-
-//    var roleExists = await roleManager.RoleExistsAsync(roleName);
-
-//    if (!roleExists)
-//    {
-//        // Rol yoksa oluþtur
-//        await roleManager.CreateAsync(new IdentityRole(roleName));
-//    }
-
-//    var userManager = roleScope.ServiceProvider.GetRequiredService<UserManager<SurveyAppMvcUser>>(); // UserManager'ýn türü deðiþtirildi
-
-//    string email = "samet.tunay12@gmail.com";
-
-//    var user = await userManager.FindByEmailAsync(email);
-//    await userManager.AddToRoleAsync(user, "Admin");
-//}
 
 app.Run();

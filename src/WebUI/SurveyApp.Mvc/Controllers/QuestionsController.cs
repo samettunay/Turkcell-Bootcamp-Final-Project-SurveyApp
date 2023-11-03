@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SurveyApp.DataTransferObjects.Requests;
+using Microsoft.Extensions.Caching.Memory;
 using SurveyApp.Mvc.Models;
 using SurveyApp.Services.Services;
 
@@ -12,12 +12,14 @@ namespace SurveyApp.Mvc.Controllers
         private readonly IQuestionTypeService _questionTypeService;
         private readonly IQuestionService _questionService;
         private readonly IQuestionOptionService _questionOptionService;
-        public QuestionsController(ISurveyService surveyService, IQuestionTypeService questionTypeService, IQuestionService questionService, IQuestionOptionService questionOptionService)
+        private readonly IMemoryCache _memoryCache;
+        public QuestionsController(ISurveyService surveyService, IQuestionTypeService questionTypeService, IQuestionService questionService, IQuestionOptionService questionOptionService, IMemoryCache memoryCache)
         {
             _surveyService = surveyService;
             _questionTypeService = questionTypeService;
             _questionService = questionService;
             _questionOptionService = questionOptionService;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Create()
