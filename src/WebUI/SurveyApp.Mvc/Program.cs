@@ -5,6 +5,8 @@ using SurveyApp.Mvc.Extensions;
 using Microsoft.AspNetCore.Identity;
 using SurveyApp.Mvc.Data;
 using SurveyApp.Mvc.Areas.Identity.Data;
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,9 @@ builder.Services.AddDefaultIdentity<SurveyAppMvcUser>(options => options.SignIn.
 
 builder.Services.AddInjections(connectionStringSurvey);
 
+
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +54,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseNotyf();
 
 app.UseAuthentication();
 

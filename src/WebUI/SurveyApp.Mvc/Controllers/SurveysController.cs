@@ -1,4 +1,5 @@
-﻿using Azure.Core;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +23,8 @@ namespace SurveyApp.Mvc.Controllers
         private readonly IAnswerOptionService _answerOptionService;
         private readonly ISurveyStatusService _surveyStatusService;
         private readonly IMemoryCache _memoryCache;
-        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService, ISurveyTypeService surveyTypeService, IMemoryCache memoryCache)
+        private readonly INotyfService _notyf;
+        public SurveysController(ILogger<SurveysController> logger, ISurveyService surveyService, IAnswerService answerService, IAnswerOptionService answerOptionService, IResponseService responseService, ISurveyStatusService surveyStatusService, ISurveyTypeService surveyTypeService, IMemoryCache memoryCache, INotyfService notyf)
         {
             _logger = logger;
             _surveyService = surveyService;
@@ -32,6 +34,7 @@ namespace SurveyApp.Mvc.Controllers
             _surveyStatusService = surveyStatusService;
             _surveyTypeService = surveyTypeService;
             _memoryCache = memoryCache;
+            _notyf = notyf;
         }
 
         public async Task<IActionResult> Index()
@@ -138,51 +141,61 @@ namespace SurveyApp.Mvc.Controllers
         public async Task<IActionResult> SubmitAnswers(ResponseViewModel response)
         {
 
-            var responseRequest = new SurveyResponseRequest
+            try
             {
-                RespondentId = 1,
-                SurveyId = response.SurveyId,
-            };
-
-            var responseId = await _responseService.CreateAndReturnIdAsync(responseRequest);
-
-            foreach (var answer in response.Answers)
-            {
-                var answerRequest = new AnswerRequest
+                var responseRequest = new SurveyResponseRequest
                 {
-                    AnswerText = answer.AnswerText,
-                    QuestionId = answer.QuestionId,
-                    ResponseId = responseId,
+                    RespondentId = 1,
+                    SurveyId = response.SurveyId,
                 };
 
-                var answerId = await _answerService.CreateAndReturnIdAsync(answerRequest);
-                
-                if (answer.AnswerOptionIds != null)
+                var responseId = await _responseService.CreateAndReturnIdAsync(responseRequest);
+
+                foreach (var answer in response.Answers)
                 {
-                    foreach (var answerOptionId in answer.AnswerOptionIds)
+                    var answerRequest = new AnswerRequest
+                    {
+                        AnswerText = answer.AnswerText,
+                        QuestionId = answer.QuestionId,
+                        ResponseId = responseId,
+                    };
+
+                    var answerId = await _answerService.CreateAndReturnIdAsync(answerRequest);
+
+                    if (answer.AnswerOptionIds != null)
+                    {
+                        foreach (var answerOptionId in answer.AnswerOptionIds)
+                        {
+                            var answerOptionRequest = new AnswerOptionRequest
+                            {
+                                AnswerId = answerId,
+                                QuestionOptionId = answerOptionId,
+                            };
+                            await _answerOptionService.CreateAsync(answerOptionRequest);
+                        }
+                    }
+
+                    if (answer.AnswerOptionId != null)
                     {
                         var answerOptionRequest = new AnswerOptionRequest
                         {
                             AnswerId = answerId,
-                            QuestionOptionId = answerOptionId,
+                            QuestionOptionId = answer.AnswerOptionId,
                         };
                         await _answerOptionService.CreateAsync(answerOptionRequest);
                     }
-                }
 
-                if (answer.AnswerOptionId != null)
-                {
-                    var answerOptionRequest = new AnswerOptionRequest
-                    {
-                        AnswerId = answerId,
-                        QuestionOptionId = answer.AnswerOptionId,
-                    };
-                    await _answerOptionService.CreateAsync(answerOptionRequest);
                 }
-
+                var successMessage = "Sending successful!";
+                _notyf.Success(successMessage);
+            }
+            catch (Exception)
+            {
+                var errorMessage = "An error occurred, please try again.";
+                _notyf.Error(errorMessage);
             }
 
-            return Redirect(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> GetSurveysByTypeId(int surveyTypeId)
