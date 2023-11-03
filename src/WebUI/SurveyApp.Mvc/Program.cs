@@ -7,6 +7,7 @@ using SurveyApp.Mvc.Data;
 using SurveyApp.Mvc.Areas.Identity.Data;
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,9 @@ builder.Services.AddSession(opt =>
     opt.IdleTimeout = TimeSpan.FromMinutes(15);
 });
 
-builder.Services.AddMemoryCache();
+IConfiguration configuration = builder.Configuration;
+var multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 

@@ -3,11 +3,6 @@ using SurveyApp.DataTransferObjects.Requests;
 using SurveyApp.DataTransferObjects.Responses;
 using SurveyApp.Entities;
 using SurveyApp.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SurveyApp.Services.Services
 {
@@ -15,12 +10,26 @@ namespace SurveyApp.Services.Services
     {
         private readonly ISurveyRepository _repository;
         private readonly IMapper _mapper;
-
-        public SurveyService(ISurveyRepository repository, IMapper mapper)
+        public ICacheService CacheService { get; }
+        public SurveyService(ISurveyRepository repository, IMapper mapper, ICacheService cacheService)
             : base(repository, mapper)
         {
             _repository = repository;
             _mapper = mapper;
+            CacheService = cacheService;
+        }
+
+        public override Task<IEnumerable<SurveyDisplayResponse>> GetAllAsync()
+        {
+            return GetSurveysFromCache();
+        }
+
+        private async Task<IEnumerable<SurveyDisplayResponse>> GetSurveysFromCache()
+        {
+            return await CacheService.GetOrAddAsync("allSurveys", async () =>
+            {
+                return await base.GetAllAsync();
+            });
         }
 
         public async Task<int> CreateAndReturnIdAsync(SurveyRequest request)

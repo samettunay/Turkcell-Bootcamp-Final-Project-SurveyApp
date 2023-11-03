@@ -44,28 +44,8 @@ namespace SurveyApp.Mvc.Controllers
 
         public async Task<IActionResult> Display(int surveyId)
         {
-            var survey = await getSurveyMemCacheOrDb(surveyId);
+            var survey = await _surveyService.GetByIdAsync(surveyId);
             return View(survey);
-        }
-
-        private async Task<SurveyDisplayResponse> getSurveyMemCacheOrDb(int surveyId)
-        {
-            if (!_memoryCache.TryGetValue("Survey", out CacheDataInfo cacheDataInfo))
-            {
-                var options = new MemoryCacheEntryOptions()
-                                  .SetSlidingExpiration(TimeSpan.FromMinutes(1))
-                                  .SetPriority(CacheItemPriority.Normal);
-
-                cacheDataInfo = new CacheDataInfo
-                {
-                    CacheTime = DateTime.Now,
-                    Survey = await _surveyService.GetByIdAsync(surveyId)
-                };
-
-                _memoryCache.Set("Survey", cacheDataInfo, options);
-            }
-
-             return cacheDataInfo.Survey;  
         }
 
         [Authorize(Roles = "Admin")]

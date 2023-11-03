@@ -2,15 +2,16 @@ using SurveyApp.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
 using SurveyApp.API.Extensions;
 using SurveyApp.Infrastructure.Data;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+IConfiguration configuration = builder.Configuration;
+var multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 

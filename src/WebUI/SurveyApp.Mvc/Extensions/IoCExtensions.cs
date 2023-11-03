@@ -28,6 +28,7 @@ namespace SurveyApp.Mvc.Extensions
             services.AddScoped<IQuestionTypeRepository, EFQuestionTypeRepository>();
             services.AddScoped<IQuestionOptionService, QuestionOptionService>();
             services.AddScoped<IQuestionOptionRepository, EFQuestionOptionRepository>();
+            services.AddScoped<ICacheService, RedisCacheService>();
 
             services.AddDbContext<SurveyDbContext>(opt => opt.UseSqlServer(connectionString));
 
