@@ -62,8 +62,7 @@ namespace SurveyApp.Mvc.Controllers
                 _memoryCache.Set("Survey", cacheDataInfo, options);
             }
 
-
-            return cacheDataInfo.Survey;
+             return cacheDataInfo.Survey;  
         }
 
         [Authorize(Roles = "Admin")]

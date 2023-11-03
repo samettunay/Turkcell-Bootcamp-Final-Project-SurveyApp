@@ -1,5 +1,12 @@
 ﻿@model SurveyComponentModel
 
+@{
+    string currentUrl = Url.ActionContext.HttpContext.Request.Path;
+    string lastSegment = currentUrl.Substring(currentUrl.LastIndexOf('/') + 1);
+}
+
+<h1 class="mb-5" >@lastSegment</h1>
+
 <div class="row">
     <div class="col-3">
         @await Component.InvokeAsync("FilterMenu", new {model = Model.SurveyTypes})
