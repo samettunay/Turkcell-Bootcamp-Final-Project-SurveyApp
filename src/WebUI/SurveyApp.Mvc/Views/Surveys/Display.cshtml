@@ -14,7 +14,7 @@
                     <div class="text-left mb-4">
                         <h4>@question.QuestionText</h4>
 
-                        @if (question.QuestionType.Type == "Tek seçmeli")
+                        @if (question.QuestionType.Type == "Single Elective")
                         {
                             for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
                             {
@@ -28,7 +28,7 @@
                                 </div>
                             }
                         }
-                        else if (question.QuestionType.Type == "Çoktan seçmeli")
+                        else if (question.QuestionType.Type == "Multiple Choice")
                         {
                             for (int j = 0; j < question.QuestionOptions.ToList().Count; j++)
                             {
@@ -42,13 +42,13 @@
                                 </div>
                             }
                         }
-                        else if (question.QuestionType.Type == "Tek satırlık düz metin")
+                        else if (question.QuestionType.Type == "Single Line Of Plain Text")
                         {
                             <div class="form-group">
                                 <input type="text" class="form-control" name="Response.Answers[@i].AnswerText">
                             </div>
                         }
-                        else if (question.QuestionType.Type == "Değerlendirme")
+                        else if (question.QuestionType.Type == "Evaluation")
                         {
                             <div class="form-group">
                                 <input type="range" class="form-control-range" name="Response.Answers[@i].AnswerText" min="@question.QuestionOptions.FirstOrDefault().Value" max="@question.QuestionOptions.LastOrDefault().Value">

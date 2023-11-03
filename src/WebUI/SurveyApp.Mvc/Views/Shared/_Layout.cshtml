@@ -29,19 +29,22 @@
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Answers" asp-action="Index">Chart</a>
                         </li>
-                    <li class="nav-item mx-0 mx-lg-1">
-                            <div class="dropdown">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" href="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                                Admin
-                                </a>
-                                <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Create">Create Survey</a>
-                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Edit">Edit Survey</a>
-                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Delete">Delete Survey</a>
-                                    <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Questions" asp-action="Create">Create Question</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <div class="dropdown">
+                                    <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" href="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                        Admin
+                                    </a>
+                                    <div class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton">
+                                        <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Create">Create Survey</a>
+                                        <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Edit">Edit Survey</a>
+                                        <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Surveys" asp-action="Delete">Delete Survey</a>
+                                        <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Questions" asp-action="Create">Create Question</a>
+                                    </div>
                                 </div>
-                            </div>
-						</li>
+                            </li>
+                        }
                         <li class="nav-item mx-0 mx-lg-1">
                             <partial name="_LoginPartial" />
                         </li>

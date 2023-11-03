@@ -5,6 +5,7 @@ using SurveyApp.Mvc.Extensions;
 using Microsoft.AspNetCore.Identity;
 using SurveyApp.Mvc.Data;
 using SurveyApp.Mvc.Areas.Identity.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +14,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 var connectionStringSurvey = builder.Configuration.GetConnectionString("db");
-var identityConnectionString = builder.Configuration.GetConnectionString("SurveyAppMvcContextConnection");
+var connectionStringIdentity = builder.Configuration.GetConnectionString("SurveyAppMvcContextConnection");
 
-builder.Services.AddDbContext<SurveyAppMvcContext>(options => options.UseSqlServer(identityConnectionString));
+builder.Services.AddDbContext<SurveyAppMvcContext>(options => options.UseSqlServer(connectionStringIdentity));
 
-builder.Services.AddDefaultIdentity<SurveyAppMvcUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SurveyAppMvcContext>();
+builder.Services.AddDefaultIdentity<SurveyAppMvcUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SurveyAppMvcContext>();
 
 builder.Services.AddInjections(connectionStringSurvey);
 
@@ -41,6 +44,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -48,5 +53,28 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
+
+//using (var roleScope = app.Services.CreateScope())
+//{
+//    var roleManager = roleScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+//    string roleName = "Admin";
+
+//    var roleExists = await roleManager.RoleExistsAsync(roleName);
+
+//    if (!roleExists)
+//    {
+//        // Rol yoksa oluþtur
+//        await roleManager.CreateAsync(new IdentityRole(roleName));
+//    }
+
+//    var userManager = roleScope.ServiceProvider.GetRequiredService<UserManager<SurveyAppMvcUser>>(); // UserManager'ýn türü deðiþtirildi
+
+//    string email = "samet.tunay12@gmail.com";
+
+//    var user = await userManager.FindByEmailAsync(email);
+//    await userManager.AddToRoleAsync(user, "Admin");
+//}
 
 app.Run();

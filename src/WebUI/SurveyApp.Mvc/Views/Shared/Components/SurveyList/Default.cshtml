@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SurveyDisplayResponse>
+﻿@model List<SurveyDisplayResponse>
 @{
     var columnCount = 0;
     var isSurveysPage = Context.Request.Path.ToString().Contains("Surveys", StringComparison.OrdinalIgnoreCase);
@@ -20,3 +20,4 @@
         columnCount++;
     }
 </div>
+

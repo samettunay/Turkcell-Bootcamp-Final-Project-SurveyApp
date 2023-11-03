@@ -10,7 +10,7 @@
                 surveyListDiv.html(partialHtml);
             },
             error: function (err) {
-                console.log('hata', error);
+                console.log('hata', err);
             }
         });
     });

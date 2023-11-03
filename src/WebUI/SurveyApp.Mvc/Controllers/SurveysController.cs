@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -42,6 +43,7 @@ namespace SurveyApp.Mvc.Controllers
             return View(survey);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             ViewBag.SurveyStatus = await getSurveyStatusForSelectListAsync();
@@ -60,6 +62,7 @@ namespace SurveyApp.Mvc.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             ViewBag.SurveyStatus = await getSurveyStatusForSelectListAsync();
@@ -86,6 +89,7 @@ namespace SurveyApp.Mvc.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete()
         {
             ViewBag.Surveys = await getSurveysForSelectListAsync();
@@ -162,7 +166,7 @@ namespace SurveyApp.Mvc.Controllers
         public async Task<IActionResult> GetSurveysByTypeId(int surveyTypeId)
         {
             var surveys = await _surveyService.GetSurveysByTypeIdAsync(surveyTypeId);
-            return PartialView("_SurveyPartial", surveys);
+            return ViewComponent("SurveyList", surveys);
         }
 
         private async Task<IEnumerable<SelectListItem>> getSurveysForSelectListAsync()

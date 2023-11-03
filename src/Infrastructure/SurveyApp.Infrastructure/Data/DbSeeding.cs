@@ -63,10 +63,10 @@ namespace SurveyApp.Infrastructure.Data
             {
                 var questionItems = new List<QuestionType>()
                 {
-                    new(){Type = "Tek seçmeli"},
-                    new(){Type = "Çoktan seçmeli"},
-                    new(){Type = "Tek satırlık düz metin"},
-                    new(){Type = "Değerlendirme"},
+                    new(){Type = "Single Elective"},
+                    new(){Type = "Multiple Choice"},
+                    new(){Type = "Single Line Of Plain Text"},
+                    new(){Type = "Evaluation"},
 
                 };
                 dbContext.QuestionType.AddRange(questionItems);
