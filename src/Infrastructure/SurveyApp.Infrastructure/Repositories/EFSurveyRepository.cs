@@ -34,7 +34,7 @@ namespace SurveyApp.Infrastructure.Repositories
                                          .ThenInclude(q => q.QuestionOptions)
                                          .Include(s => s.Questions)
                                          .ThenInclude(q => q.QuestionType)
-                                         .FirstAsync(s => s.Id == id);
+                                         .SingleOrDefaultAsync(s => s.Id == id);
         }
 
         public override IList<Survey> GetAll()
